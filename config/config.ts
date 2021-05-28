@@ -28,9 +28,9 @@ export default defineConfig({
   targets: {
     ie: 11,
   },
-  // umi routes: https://umijs.org/docs/routing
+  // 菜单的路由
   routes,
-  // Theme for antd: https://ant.design/docs/react/customize-theme-cn
+  // 设置主题色 https://ant.design/docs/react/customize-theme-cn
   theme: {
     'primary-color': defaultSettings.primaryColor,
   },

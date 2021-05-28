@@ -56,6 +56,12 @@
                 component: './TableList',
               },
               {
+                name: 'custom',
+                icon: 'search',
+                path: '/custom',
+                component: './Custom',
+              },
+              {
                 component: './404',
               },
             ],
