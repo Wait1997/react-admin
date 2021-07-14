@@ -10,6 +10,7 @@ type AuthorizedProps = {
   noMatch?: React.ReactNode;
 };
 
+// authorized组件 最终返回的类型(包装为联合类型)
 type IAuthorizedType = React.FunctionComponent<AuthorizedProps> & {
   Secured: typeof Secured;
   check: typeof check;
@@ -27,6 +28,7 @@ const Authorized: React.FunctionComponent<AuthorizedProps> = ({
     />
   ),
 }) => {
+  // children 是 React.ReactNode
   const childrenRender: React.ReactNode = typeof children === 'undefined' ? null : children;
   const dom = check(authority, childrenRender, noMatch);
   return <>{dom}</>;

@@ -3,6 +3,9 @@ import { CURRENT } from './renderAuthorize';
 // eslint-disable-next-line import/no-cycle
 import PromiseRender from './PromiseRender';
 
+/**
+ * @description 权限判断的类型
+ */
 export type IAuthorityType =
   | undefined
   | string
@@ -11,14 +14,6 @@ export type IAuthorityType =
   | ((currentAuthority: string | string[]) => IAuthorityType);
 
 /**
- * @en-US
- * General permission check method
- * Common check permissions method
- * @param {Permission judgment} authority
- * @param {Your permission | Your permission description} currentAuthority
- * @param {Passing components} target
- * @param {no pass components | no pass components} Exception
- * -------------------------------------------------------
  * @zh-CN
  * 通用权限检查方法 Common check permissions method
  *
@@ -33,12 +28,13 @@ const checkPermissions = <T, K>(
   target: T,
   Exception: K,
 ): T | K | React.ReactNode => {
+  // 没有权限判断则全部通过
   // No judgment permission. View all by default
   // Retirement authority, return target;
   if (!authority) {
     return target;
   }
-  // Array processing
+  // authority 是数组字符串的时候
   if (Array.isArray(authority)) {
     if (Array.isArray(currentAuthority)) {
       if (currentAuthority.some((item) => authority.includes(item))) {
@@ -49,7 +45,7 @@ const checkPermissions = <T, K>(
     }
     return Exception;
   }
-  // Deal with string
+  // authority 是字符串的时候
   if (typeof authority === 'string') {
     if (Array.isArray(currentAuthority)) {
       if (currentAuthority.some((item) => authority === item)) {
@@ -60,7 +56,7 @@ const checkPermissions = <T, K>(
     }
     return Exception;
   }
-  // Deal with promise
+  // authority 是 promise的时候
   if (authority instanceof Promise) {
     return <PromiseRender<T, K> ok={target} error={Exception} promise={authority} />;
   }
@@ -68,12 +64,14 @@ const checkPermissions = <T, K>(
   if (typeof authority === 'function') {
     const bool = authority(currentAuthority);
     // The return value after the function is executed is Promise
+    // 当返回的值是promis的时候
     if (bool instanceof Promise) {
       return <PromiseRender<T, K> ok={target} error={Exception} promise={bool} />;
     }
     if (bool) {
       return target;
     }
+    // 返回undefined
     return Exception;
   }
   throw new Error('unsupported parameters');

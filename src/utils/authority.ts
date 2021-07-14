@@ -1,6 +1,7 @@
 import { reloadAuthorized } from './Authorized';
 
 // use localStorage to store the authority info, which might be sent from server in actual project.
+// 获取的权限是服务器返回的,存储在localStorage中
 export function getAuthority(str?: string): string | string[] {
   const authorityString =
     typeof str === 'undefined' && localStorage ? localStorage.getItem('antd-pro-authority') : str;

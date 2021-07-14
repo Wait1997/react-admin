@@ -37,6 +37,7 @@ class SecurityLayout extends React.Component<SecurityLayoutProps, SecurityLayout
     const { children, loading, currentUser } = this.props;
     // You can replace it to your authentication rule (such as check token exists)
     // You can replace it with your own login authentication rules (such as judging whether the token exists)
+    // 判断是否登录
     const isLogin = currentUser && currentUser.userid;
     const queryString = stringify({
       redirect: window.location.href,
@@ -45,6 +46,7 @@ class SecurityLayout extends React.Component<SecurityLayoutProps, SecurityLayout
     if ((!isLogin && loading) || !isReady) {
       return <PageLoading />;
     }
+    // 在这里进行重定向(如果不是登录状态则重定向到登录并且带上当前的参数)
     if (!isLogin && window.location.pathname !== '/user/login') {
       return <Redirect to={`/user/login?${queryString}`} />;
     }

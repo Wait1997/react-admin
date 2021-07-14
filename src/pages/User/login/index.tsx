@@ -10,13 +10,14 @@ import {
 import { Alert, Space, message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
-import { useIntl, connect, FormattedMessage } from 'umi';
+import { useIntl, connect } from 'umi';
 import { getFakeCaptcha } from '@/services/login';
 import type { Dispatch } from 'umi';
 import type { StateType } from '@/models/login';
 import type { LoginParamsType } from '@/services/login';
 import type { ConnectState } from '@/models/connect';
 import styles from './index.less';
+
 export type LoginProps = {
   dispatch: Dispatch;
   userLogin: StateType;
@@ -57,7 +58,9 @@ const Login: React.FC<LoginProps> = (props) => {
           autoLogin: true,
         }}
         submitter={{
-          render: (_, dom) => dom.pop(),
+          render: (_, dom) => {
+            return dom.pop();
+          },
           submitButtonProps: {
             loading: submitting,
             size: 'large',

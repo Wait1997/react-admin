@@ -12,7 +12,7 @@ type AuthorizedRouteProps = {
   authority: IAuthorityType;
 };
 
-const AuthorizedRoute: React.SFC<AuthorizedRouteProps> = ({
+const AuthorizedRoute: React.FunctionComponent<AuthorizedRouteProps> = ({
   component: Component,
   render,
   authority,

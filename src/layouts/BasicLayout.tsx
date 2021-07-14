@@ -32,6 +32,7 @@ const noMatch = (
     }
   />
 );
+// 扩展pro-layout类型
 export type BasicLayoutProps = {
   breadcrumbNameMap: Record<string, MenuDataItem>;
   route: ProLayoutProps['route'] & {
@@ -43,20 +44,27 @@ export type BasicLayoutProps = {
 export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
   breadcrumbNameMap: Record<string, MenuDataItem>;
 };
-/** Use Authorized check all menu item */
 
-const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
-  menuList.map((item) => {
+/** Use Authorized check all menu item */
+/**
+ * @description 递归遍历数组
+ * @param menuList BasicLayout组件下面对应的所有路由构成的数组
+ * @returns 返回有权限的菜单
+ */
+const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] => {
+  return menuList.map((item) => {
     const localItem = {
       ...item,
       children: item.children ? menuDataRender(item.children) : undefined,
     };
+    // authority routes中设置的
     return Authorized.check(item.authority, localItem, null) as MenuDataItem;
   });
+};
 
 const defaultFooterDom = (
   <DefaultFooter
-    copyright={`${new Date().getFullYear()} Produced by Ant Group Experience Technology Department`}
+    copyright={`${new Date().getFullYear()} Produced by Ant Group Experience zhuyan Department`}
     links={[
       {
         key: 'Ant Design Pro',
@@ -96,10 +104,10 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         type: 'user/fetchCurrent',
       });
     }
-  }, []);
+  }, [dispatch]);
+
   /** Init variables */
   // 打开/折叠菜单
-
   const handleMenuCollapse = (payload: boolean): void => {
     if (dispatch) {
       dispatch({
@@ -107,8 +115,9 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         payload,
       });
     }
-  }; // get children authority
+  };
 
+  // get children authority
   const authorized = useMemo(
     () =>
       getMatchMenu(location.pathname || '/', menuDataRef.current).pop() || {
@@ -116,12 +125,13 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
       },
     [location.pathname],
   );
+
   return (
     <ProLayout
       logo={logo}
       {...props}
       {...settings}
-      title="朱艳"
+      title="antd"
       onCollapse={handleMenuCollapse}
       onMenuHeaderClick={() => {
         history.push('/');
@@ -144,6 +154,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         },
         ...routers,
       ]}
+      layout="side"
       itemRender={(route, params, routes, paths) => {
         const first = routes.indexOf(route) === 0;
         return first ? (
