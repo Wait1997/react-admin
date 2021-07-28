@@ -56,8 +56,8 @@
                 component: './TableList',
               },
               {
-                name: 'custom',
-                icon: 'search',
+                name: '自定义',
+                icon: 'dashboard',
                 path: '/custom',
                 component: './Custom',
               },

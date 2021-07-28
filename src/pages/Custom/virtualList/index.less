@@ -1,0 +1,19 @@
+.list_box {
+  width: 100%;
+  background-color: #fff;
+  .scroll_box {
+    position: relative;
+    overflow-y: auto;
+    .scroll_hold {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+    }
+    .list {
+      padding: 0 15px;
+      line-height: 50px;
+    }
+  }
+}
