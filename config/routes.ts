@@ -62,6 +62,13 @@
                 component: './Custom',
               },
               {
+                name: '表格',
+                icon: 'smile',
+                path: '/table',
+                component: './EditTable',
+                authority: ['admin', 'user'],
+              },
+              {
                 component: './404',
               },
             ],
