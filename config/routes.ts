@@ -69,6 +69,13 @@
                 authority: ['admin', 'user'],
               },
               {
+                name: '表格',
+                icon: 'smile',
+                path: '/form',
+                component: './EditRow',
+                authority: ['admin', 'user'],
+              },
+              {
                 component: './404',
               },
             ],

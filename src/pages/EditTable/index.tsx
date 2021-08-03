@@ -48,12 +48,14 @@ const EditableCell: React.FC<EditableCellProps> = ({
   const inputRef = useRef<Input>(null);
   const form = useContext(EditableContext)!;
 
+  // 当前正在编辑的行
   useEffect(() => {
     if (editing) {
       inputRef.current!.focus();
     }
   }, [editing]);
 
+  // 点击切换输入框、文本框
   const toggleEdit = () => {
     setEditing(!editing);
     form.setFieldsValue({ [dataIndex]: record[dataIndex] });
@@ -96,6 +98,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
+// 推断参数类型
 type EditableTableProps = Parameters<typeof Table>[0];
 
 export interface DataType {
