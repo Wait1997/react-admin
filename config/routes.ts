@@ -50,10 +50,11 @@
                 ],
               },
               {
-                name: 'list.table-list',
+                name: 'table-list',
                 icon: 'table',
                 path: '/list',
                 component: './TableList',
+                authority: ['admin'],
               },
               {
                 name: '自定义',

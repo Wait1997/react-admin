@@ -97,7 +97,9 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
       pathname: '/',
     },
   } = props;
+
   const menuDataRef = useRef<MenuDataItem[]>([]);
+
   useEffect(() => {
     if (dispatch) {
       dispatch({
@@ -173,6 +175,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
       menuDataRender={menuDataRender}
       rightContentRender={() => <RightContent />}
       postMenuData={(menuData) => {
+        // menuData都是处理过的routes
         menuDataRef.current = menuData || [];
         return menuData || [];
       }}
